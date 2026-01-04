@@ -27,11 +27,8 @@ jobs:
       - name: Scrape Fear & Greed
         run: python scrape_fear_greed.py
 
-      - name: Scrape App Store ranks
+      - name: Scrape App Store data
         run: python scrape_app_store.py
-
-      - name: Scrape BTC price
-        run: python scrape_btc_price.py
 
       - name: Commit updates
         run: |
