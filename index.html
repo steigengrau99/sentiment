@@ -83,9 +83,9 @@ body {
 Promise.all([
   fetch("fear_greed.json?v="+Date.now()).then(r=>r.json()),
   fetch("app_store_ranks.json?v="+Date.now()).then(r=>r.json()),
-  fetch("https://api.coindesk.com/v1/bpi/historical/close.json")
-    .then(r=>r.json())
-]).then(([fg, apps, btc]) => {
+  fetch("btc_price.json?v="+Date.now()).then(r=>r.json())
+])
+.then(([fg, apps, btc]) => {
 
   const latest = fg[fg.length-1];
   document.getElementById("fg-value").innerText = latest.value;
@@ -97,7 +97,7 @@ Promise.all([
     new Date(d.timestamp*1000).toISOString().slice(0,10)
   );
   const fgValues = fg.map(d=>Number(d.value));
-  const btcValues = Object.values(btc.bpi);
+const btcValues = btc.map(d => d.price);
 
   new Chart(document.getElementById("chart"), {
     type:"line",
