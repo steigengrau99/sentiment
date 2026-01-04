@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Market Sentiment Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+  --bg:#000;
+  --panel:#0c0c0c;
+  --text:#f5f5f5;
+  --muted:#9ca3af;
+  --orange:#ff9900;
+  --cyan:#00e5ff;
+}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  max-width:1100px;
+  margin:40px auto;
+  padding:20px;
+}
+
+.title {
+  color:var(--orange);
+  font-size:1.8rem;
+  font-weight:bold;
+}
+
+.card {
+  background:var(--panel);
+  padding:25px;
+  border-radius:14px;
+  margin-top:25px;
+}
+
+.big {
+  font-size:4rem;
+  color:var(--cyan);
+}
+
+.muted { color:var(--muted); }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="title">📊 Market Sentiment</div>
+
+  <div class="card">
+    <div id="fg-value" class="big">—</div>
+    <div id="fg-label"></div>
+    <div id="fg-time" class="muted"></div>
+  </div>
+
+  <div class="card">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>📱 iOS App Store Rankings</h3>
+    <p id="coinbase">Coinbase: —</p>
+    <p id="robinhood">Robinhood: —</p>
+  </div>
+
+  <p class="muted" style="text-align:center;margin-top:30px;">
+    Data as of UTC • Bloomberg-style sentiment dashboard
+  </p>
+
+</div>
+
+<script>
+Promise.all([
+  fetch("fear_greed.json?v="+Date.now()).then(r=>r.json()),
+  fetch("app_store_ranks.json?v="+Date.now()).then(r=>r.json()),
+  fetch("https://api.coindesk.com/v1/bpi/historical/close.json")
+    .then(r=>r.json())
+]).then(([fg, apps, btc]) => {
+
+  const latest = fg[fg.length-1];
+  document.getElementById("fg-value").innerText = latest.value;
+  document.getElementById("fg-label").innerText = latest.value_classification;
+  document.getElementById("fg-time").innerText =
+    "Updated: " + new Date(latest.timestamp*1000).toUTCString();
+
+  const labels = fg.map(d =>
+    new Date(d.timestamp*1000).toISOString().slice(0,10)
+  );
+  const fgValues = fg.map(d=>Number(d.value));
+  const btcValues = Object.values(btc.bpi);
+
+  new Chart(document.getElementById("chart"), {
+    type:"line",
+    data:{
+      labels,
+      datasets:[
+        {
+          label:"Fear & Greed",
+          data:fgValues,
+          borderColor:"#ff9900",
+          yAxisID:"y"
+        },
+        {
+          label:"BTC Price",
+          data:btcValues,
+          borderColor:"#00e5ff",
+          yAxisID:"y1"
+        }
+      ]
+    },
+    options:{
+      scales:{
+        y:{ min:0, max:100, ticks:{color:"#9ca3af"}},
+        y1:{
+          position:"right",
+          ticks:{color:"#9ca3af"},
+          grid:{drawOnChartArea:false}
+        }
+      }
+    }
+  });
+
+  const latestIOS = [...apps].reverse();
+  document.getElementById("coinbase").innerText =
+    "Coinbase: " + (latestIOS.find(a=>a.app==="Coinbase")?.rank ?? "N/A");
+  document.getElementById("robinhood").innerText =
+    "Robinhood: " + (latestIOS.find(a=>a.app==="Robinhood")?.rank ?? "N/A");
+
+});
+</script>
+
+</body>
+</html>
