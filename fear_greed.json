@@ -64,5 +64,11 @@
     "value_classification": "Neutral",
     "timestamp": "1768348800",
     "time_until_update": "60999"
+  },
+  {
+    "value": "61",
+    "value_classification": "Greed",
+    "timestamp": "1768435200",
+    "time_until_update": "61002"
   }
 ]
