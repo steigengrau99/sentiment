@@ -82,5 +82,11 @@
     "value_classification": "Neutral",
     "timestamp": "1768694400",
     "time_until_update": "61280"
+  },
+  {
+    "value": "44",
+    "value_classification": "Fear",
+    "timestamp": "1768780800",
+    "time_until_update": "58508"
   }
 ]
