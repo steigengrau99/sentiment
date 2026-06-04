@@ -814,5 +814,11 @@
     "value_classification": "Extreme Fear",
     "timestamp": "1780444800",
     "time_until_update": "45323"
+  },
+  {
+    "value": "12",
+    "value_classification": "Extreme Fear",
+    "timestamp": "1780531200",
+    "time_until_update": "49600"
   }
 ]
