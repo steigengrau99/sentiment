@@ -1786,5 +1786,17 @@
     "app": "Robinhood",
     "platform": "ios",
     "rank": 86
+  },
+  {
+    "date": "2026-06-17",
+    "app": "Coinbase",
+    "platform": "ios",
+    "rank": null
+  },
+  {
+    "date": "2026-06-17",
+    "app": "Robinhood",
+    "platform": "ios",
+    "rank": null
   }
 ]
