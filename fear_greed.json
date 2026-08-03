@@ -1150,5 +1150,11 @@
     "value_classification": "Fear",
     "timestamp": "1785628800",
     "time_until_update": "55144"
+  },
+  {
+    "value": "28",
+    "value_classification": "Fear",
+    "timestamp": "1785715200",
+    "time_until_update": "49819"
   }
 ]
