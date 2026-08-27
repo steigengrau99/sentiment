@@ -1276,5 +1276,11 @@
     "value_classification": "Greed",
     "timestamp": "1787702400",
     "time_until_update": "60325"
+  },
+  {
+    "value": "71",
+    "value_classification": "Greed",
+    "timestamp": "1787788800",
+    "time_until_update": "22659"
   }
 ]
