@@ -1516,5 +1516,11 @@
     "value_classification": "Neutral",
     "timestamp": "1792800000",
     "time_until_update": "45665"
+  },
+  {
+    "value": "54",
+    "value_classification": "Neutral",
+    "timestamp": "1792886400",
+    "time_until_update": "43863"
   }
 ]
